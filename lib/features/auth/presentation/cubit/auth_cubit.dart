@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +21,14 @@ class AuthCubit extends Cubit<AuthState> {
             email: emailController.text,
             password: passwordController.text,
           );
+      User? user = credential.user;
+      await user?.updateDisplayName(nameController.text);
+      log("Success");
+      FirebaseFirestore.instance.collection("users").doc(user?.uid).set({
+        "name": nameController.text,
+        "email": emailController.text,
+        "uid": credential.user?.uid,
+      });
       emit(AuthSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -39,6 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: emailController.text,
         password: passwordController.text,
       );
+      log("Success");
       emit(AuthSuccessState());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
