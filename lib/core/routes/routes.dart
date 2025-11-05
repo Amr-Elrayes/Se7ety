@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sa7ety/features/auth/models/user_type_enum.dart';
 import 'package:sa7ety/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:sa7ety/features/auth/presentation/screens/doctor_regestration.dart';
 import 'package:sa7ety/features/auth/presentation/screens/login_screen.dart';
 import 'package:sa7ety/features/auth/presentation/screens/register_screen.dart';
 import 'package:sa7ety/features/main/main_app_screen.dart';
@@ -17,6 +18,7 @@ class Routes {
   static String welcome = "/welcome";
   static String login = "/login";
   static String register = "/register";
+  static String docregister = "/docregister";
   static String main = "/main";
 
   static GoRouter routes = GoRouter(
@@ -44,6 +46,15 @@ class Routes {
           return BlocProvider(
             create: (context) => AuthCubit(),
             child: RegisterScreen(userType: userType),
+          );
+        },
+      ),
+      GoRoute(
+        path: docregister,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => AuthCubit(),
+            child: DoctorRegestration(),
           );
         },
       ),

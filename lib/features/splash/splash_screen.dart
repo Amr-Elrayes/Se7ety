@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // var userData = SharedPref.getUserData();
     Future.delayed(Duration(seconds: 3), () {
-      pushReplacment(context, Routes.onboarding);
+      pushReplacment(context, Routes.welcome);
       // if (userData != null) {
       //   pushReplacment(context, Routes.welcome);
       // } else {
@@ -31,9 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(AppImages.logo , width: 200,),
-          ],
+          children: [Image.asset(AppImages.logo, width: 200)],
         ),
       ),
     );
