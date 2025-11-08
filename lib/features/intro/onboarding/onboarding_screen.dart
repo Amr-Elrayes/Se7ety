@@ -6,8 +6,9 @@ import 'package:sa7ety/core/routes/navigation.dart';
 import 'package:sa7ety/core/routes/routes.dart';
 import 'package:sa7ety/core/utils/colors.dart';
 import 'package:sa7ety/core/utils/text_styles.dart';
+import 'package:sa7ety/services/local/shared_pref.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:sa7ety/features/onboarding/model/onboarding_model.dart';
+import 'package:sa7ety/features/intro/onboarding/model/onboarding_model.dart';
 
 // ignore: must_be_immutable
 class OnboardingScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           if (currentIndex != OnBoardingModel.onBoardingScreens.length - 1)
             TextButton(
               onPressed: () {
+                SharedPref.setOnboardingSeen();
                 pushAndRemoveUntil(context, Routes.welcome);
               },
               child: Text("تخطي"),
@@ -102,6 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       width: 100,
                       txt: "هيا بنا",
                       onPressed: () {
+                        SharedPref.setOnboardingSeen();
                         pushAndRemoveUntil(context, Routes.welcome);
                       },
                     ),

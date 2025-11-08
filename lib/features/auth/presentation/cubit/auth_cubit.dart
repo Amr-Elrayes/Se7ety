@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +33,7 @@ class AuthCubit extends Cubit<AuthState> {
           );
       User? user = credential.user;
       await user?.updateDisplayName(nameController.text);
+      user?.updatePhotoURL(type == usertype.doctor ? "doctor" : "patient");
       if (type == usertype.doctor) {
         var doctor = DoctorModel(
           uid: user?.uid,
@@ -76,30 +76,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: emailController.text,
         password: passwordController.text,
       );
-      User? user = credential.user;
-      await user?.updateDisplayName(nameController.text);
-      if (type == usertype.doctor) {
-        var doctor = DoctorModel(
-          uid: user?.uid,
-          name: nameController.text,
-          email: emailController.text,
-        );
-        await FirebaseFirestore.instance
-            .collection("doctor")
-            .doc(user?.uid)
-            .set(doctor.toJson());
-      } else {
-        var patient = PatientModel(
-          uid: user?.uid,
-          name: nameController.text,
-          email: emailController.text,
-        );
-        await FirebaseFirestore.instance
-            .collection("patient")
-            .doc(user?.uid)
-            .set(patient.toJson());
-      }
-      emit(AuthSuccessState());
+      emit(AuthSuccessState(role: credential.user?.photoURL));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(AuthFailureState('لا يوجد مستخدم بهذا الايميل.'));
@@ -111,20 +88,17 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-updateDoctorData(File? pickedImage) async
-{
+  updateDoctorData(File? pickedImage) async {
     emit(AuthLoadingState());
     try {
       String? imageUrl = await updateImageToCloudinary(pickedImage!);
-      if(imageUrl == null){
+      if (imageUrl == null) {
         emit(AuthFailureState('فشل في رفع الصورة. حاول مرة أخرى.'));
         return;
       }
       User? user = FirebaseAuth.instance.currentUser;
       var doctor = DoctorModel(
         uid: user?.uid,
-        name: nameController.text,
-        email: emailController.text,
         bio: bioController.text,
         phone1: phone1Controller.text,
         phone2: phone2Controller.text,
@@ -133,16 +107,15 @@ updateDoctorData(File? pickedImage) async
         openHour: openHourController.text,
         closeHour: closeHourController.text,
         image: imageUrl,
-        rating: 3
+        rating: 3,
       );
       await FirebaseFirestore.instance
-          .collection("users")
+          .collection("doctor")
           .doc(user?.uid)
           .update(doctor.updateData());
       emit(AuthSuccessState());
     } catch (e) {
       emit(AuthFailureState('حدث خطأ ما، حاول مرة أخرى.'));
     }
-}
-
+  }
 }

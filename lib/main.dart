@@ -4,9 +4,11 @@ import 'package:sa7ety/core/routes/routes.dart';
 import 'package:sa7ety/core/utils/app_theme.dart';
 import 'package:sa7ety/firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sa7ety/services/local/shared_pref.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPref.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     Directionality(textDirection: TextDirection.rtl, child: const Se7ety()),

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +33,12 @@ class RegisterScreen extends StatelessWidget {
               showloadingDialog(context);
             } else if (state is AuthSuccessState) {
               pop(context);
-              log("User Registered Successfully");
               if(userType == usertype.doctor){
                 pushReplacment(context, Routes.docregister);
+              }
+              else
+              {
+                pushReplacment(context, Routes.patent_main);
               }
             } else if (state is AuthFailureState) {
               Navigator.pop(context);

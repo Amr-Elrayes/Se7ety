@@ -7,10 +7,11 @@ import 'package:sa7ety/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sa7ety/features/auth/presentation/screens/doctor_regestration.dart';
 import 'package:sa7ety/features/auth/presentation/screens/login_screen.dart';
 import 'package:sa7ety/features/auth/presentation/screens/register_screen.dart';
-import 'package:sa7ety/features/main/main_app_screen.dart';
-import 'package:sa7ety/features/onboarding/onboarding_screen.dart';
-import 'package:sa7ety/features/splash/splash_screen.dart';
-import 'package:sa7ety/features/welcome/welcome_screen.dart';
+import 'package:sa7ety/features/doctor/main/doctor_main_screen.dart';
+import 'package:sa7ety/features/intro/onboarding/onboarding_screen.dart';
+import 'package:sa7ety/features/intro/splash/splash_screen.dart';
+import 'package:sa7ety/features/intro/welcome/welcome_screen.dart';
+import 'package:sa7ety/features/patient/main/patient_main_screen.dart';
 
 class Routes {
   static String splah = "/";
@@ -19,7 +20,8 @@ class Routes {
   static String login = "/login";
   static String register = "/register";
   static String docregister = "/docregister";
-  static String main = "/main";
+  static String doctor_main = "/doctor_main";
+  static String patent_main = "/patent_main";
 
   static GoRouter routes = GoRouter(
     routes: [
@@ -59,9 +61,15 @@ class Routes {
         },
       ),
       GoRoute(
-        path: main,
+        path: doctor_main,
         builder: (context, state) {
-          return MainAppScreen();
+          return DoctorMainScreen();
+        },
+      ),
+      GoRoute(
+        path: patent_main,
+        builder: (context, state) {
+          return PatientMainScreen();
         },
       ),
     ],

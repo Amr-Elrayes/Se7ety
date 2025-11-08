@@ -33,7 +33,14 @@ class LoginScreen extends StatelessWidget {
               showloadingDialog(context);
             } else if (state is AuthSuccessState) {
               pop(context);
-              pushAndRemoveUntil(context, Routes.main);
+              if(state.role == "doctor") 
+              {
+                pushAndRemoveUntil(context, Routes.doctor_main);
+              }
+              else
+              {
+                pushAndRemoveUntil(context, Routes.patent_main);
+              }
             } else if (state is AuthFailureState) {
               Navigator.pop(context);
               showSnakBar(context, Colors.red, state.errorMessage);

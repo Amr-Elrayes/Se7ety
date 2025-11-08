@@ -11,6 +11,7 @@ import 'package:sa7ety/core/constants/specializations.dart';
 import 'package:sa7ety/core/functions/showdialog.dart';
 import 'package:sa7ety/core/functions/snackbar.dart';
 import 'package:sa7ety/core/routes/navigation.dart';
+import 'package:sa7ety/core/routes/routes.dart';
 import 'package:sa7ety/core/utils/colors.dart';
 import 'package:sa7ety/core/utils/text_styles.dart';
 import 'package:sa7ety/features/auth/presentation/cubit/auth_cubit.dart';
@@ -35,7 +36,7 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
           showloadingDialog(context);
         } else if (state is AuthSuccessState) {
           pop(context);
-          // pushWithReplacement(context, Routes.doctorMain);
+          pushReplacment(context, Routes.doctor_main);
         } else if (state is AuthFailureState) {
           pop(context);
           showSnakBar(context, Colors.red, state.errorMessage);
@@ -185,7 +186,7 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
                     textAlign: TextAlign.start,
                     hintText:
                         "سجل المعلومات الطبيه العامه مثل تعليمك الاكاديمي و خبراتك السابقة",
-                    maxlines: 7,
+                    maxlines: 5,
                     controller: cubit.bioController,
                   ),
                   Gap(10),
@@ -373,6 +374,7 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
     );
     if (file != null) {
       setState(() {
+        pop(context);
         imagePath = File(file.path);
       });
     }
