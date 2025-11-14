@@ -1,0 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:sa7ety/components/cards/doctor_card.dart';
+import 'package:sa7ety/features/auth/models/doctor_model.dart';
+import 'package:sa7ety/services/firebase/firestore_services.dart';
+
+class TopRatedList extends StatefulWidget {
+  const TopRatedList({super.key});
+
+  @override
+  State<TopRatedList> createState() => _TopRatedListState();
+}
+
+class _TopRatedListState extends State<TopRatedList> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: FirestoreServices.sortDoctorsByRating(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(value: .9, color: Colors.black12),
+          );
+        } else {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: snapshot.data?.docs.length, // all doctors in firebase
+            itemBuilder: (context, index) {
+              DoctorModel doctor = DoctorModel.fromJson(
+                snapshot.data?.docs[index].data() as Map<String, dynamic>,
+              );
+              return DoctorCard(doctor: doctor);
+            },
+          );
+        }
+      },
+    );
+  }
+}

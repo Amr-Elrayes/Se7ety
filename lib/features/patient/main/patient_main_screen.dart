@@ -5,7 +5,7 @@ import 'package:sa7ety/core/utils/text_styles.dart';
 import 'package:sa7ety/features/patient/home/presentation/pages/patient_home_screen.dart';
 import 'package:sa7ety/features/patient/screens/my_appointment_screen.dart';
 import 'package:sa7ety/features/patient/screens/patient_profile_screen.dart';
-import 'package:sa7ety/features/patient/screens/search_screen.dart';
+import 'package:sa7ety/features/patient/search/pages/search_screen.dart';
 
 class PatientMainScreen extends StatefulWidget {
   const PatientMainScreen({super.key});

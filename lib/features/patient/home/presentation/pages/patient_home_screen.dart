@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:sa7ety/core/routes/navigation.dart';
+import 'package:sa7ety/core/routes/routes.dart';
 import 'package:sa7ety/core/utils/colors.dart';
 import 'package:sa7ety/core/utils/text_styles.dart';
 import 'package:sa7ety/features/patient/home/presentation/widgets/specialists_widget.dart';
+import 'package:sa7ety/features/patient/home/presentation/widgets/top_rated.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({super.key});
@@ -79,7 +82,6 @@ class _HomePageState extends State<PatientHomeScreen> {
               ),
               const SizedBox(height: 20),
 
-              // --------------- Search Bar --------------------------
               Container(
                 height: 55,
                 decoration: BoxDecoration(
@@ -113,11 +115,11 @@ class _HomePageState extends State<PatientHomeScreen> {
                         icon: const Icon(Icons.search),
                         onPressed: () {
                           if (_doctorName.text.isNotEmpty) {
-                            // pushTo(
-                            //   context,
-                            //   Routes.homeSearch,
-                            //   extra: _doctorName.text,
-                            // );
+                            pushTo(
+                              context,
+                              Routes.home_search,
+                              extra: _doctorName.text,
+                            );
                           }
                         },
                       ),
@@ -126,11 +128,11 @@ class _HomePageState extends State<PatientHomeScreen> {
                   style: TextStyles.textSize18,
                   onFieldSubmitted: (String value) {
                     if (_doctorName.text.isNotEmpty) {
-                      // pushTo(
-                      //   context,
-                      //   Routes.homeSearch,
-                      //   extra: _doctorName.text,
-                      // );
+                      pushTo(
+                        context,
+                        Routes.home_search,
+                        extra: _doctorName.text,
+                      );
                     }
                   },
                 ),
@@ -138,18 +140,19 @@ class _HomePageState extends State<PatientHomeScreen> {
 
               const SizedBox(height: 20),
 
-              // ----------------  SpecialistsWidget --------------------,
               const SpecialistsBanner(),
               const SizedBox(height: 10),
 
-              // ----------------  Top Rated --------------------,
               Text(
                 "الأعلي تقييماً",
                 textAlign: TextAlign.center,
-                style: TextStyles.textSize24.copyWith(fontSize: 16),
+                style: TextStyles.textSize24.copyWith(
+                  fontSize: 16,
+                  color: AppColors.primaryColor,
+                ),
               ),
               const SizedBox(height: 10),
-              // const TopRatedList(),
+              const TopRatedList(),
             ],
           ),
         ),

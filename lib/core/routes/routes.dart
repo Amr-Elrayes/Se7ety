@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sa7ety/features/auth/models/doctor_model.dart';
 import 'package:sa7ety/features/auth/models/user_type_enum.dart';
 import 'package:sa7ety/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:sa7ety/features/auth/presentation/screens/doctor_regestration.dart';
@@ -11,7 +12,10 @@ import 'package:sa7ety/features/doctor/main/doctor_main_screen.dart';
 import 'package:sa7ety/features/intro/onboarding/onboarding_screen.dart';
 import 'package:sa7ety/features/intro/splash/splash_screen.dart';
 import 'package:sa7ety/features/intro/welcome/welcome_screen.dart';
+import 'package:sa7ety/features/patient/home/presentation/pages/home_search_screen.dart';
+import 'package:sa7ety/features/patient/home/presentation/pages/specilization_screen.dart';
 import 'package:sa7ety/features/patient/main/patient_main_screen.dart';
+import 'package:sa7ety/features/patient/search/pages/doctor_profile_screen.dart';
 
 class Routes {
   static String splah = "/";
@@ -22,6 +26,9 @@ class Routes {
   static String docregister = "/docregister";
   static String doctor_main = "/doctor_main";
   static String patent_main = "/patent_main";
+  static String doctor_profile = "/doctor_profile";
+  static String specilization = "/specilization";
+  static String home_search = "/home_search";
 
   static GoRouter routes = GoRouter(
     routes: [
@@ -70,6 +77,26 @@ class Routes {
         path: patent_main,
         builder: (context, state) {
           return PatientMainScreen();
+        },
+      ),
+      GoRoute(
+        path: doctor_profile,
+        builder: (context, state) {
+          return DoctorProfileScreen(doctorModel: state.extra as DoctorModel);
+        },
+      ),
+      GoRoute(
+        path: specilization,
+        builder: (context, state) {
+          return SpecializationSearchScreen(
+            specialization: state.extra as String,
+          );
+        },
+      ),
+      GoRoute(
+        path: home_search,
+        builder: (context, state) {
+          return HomeSearchSearchScreen(searchKey: state.extra as String);
         },
       ),
     ],

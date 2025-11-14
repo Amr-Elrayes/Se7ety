@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:sa7ety/core/routes/navigation.dart';
+import 'package:sa7ety/core/routes/routes.dart';
 import 'package:sa7ety/core/utils/colors.dart';
 import 'package:sa7ety/core/utils/text_styles.dart';
 import 'package:sa7ety/features/patient/home/data/specilization_model.dart';
@@ -13,7 +15,13 @@ class SpecialistsBanner extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("التخصصات", style: TextStyles.textSize24.copyWith(fontSize: 16)),
+        Text(
+          "التخصصات",
+          style: TextStyles.textSize24.copyWith(
+            fontSize: 16,
+            color: AppColors.primaryColor,
+          ),
+        ),
         SizedBox(
           height: 230,
           width: double.infinity,
@@ -24,11 +32,11 @@ class SpecialistsBanner extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  // pushTo(
-                  //   context,
-                  //   Routes.specializationSearch,
-                  //   extra: cards[index].name,
-                  // );
+                  pushTo(
+                    context,
+                    Routes.specilization,
+                    extra: cards[index].name,
+                  );
                 },
                 child: ItemCardWidget(model: cards[index]),
               );
