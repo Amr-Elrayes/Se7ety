@@ -203,7 +203,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
           child: customButtom(
             txt: 'احجز موعد الان',
             onPressed: () {
-              pushTo(context, Routes.doctor_profile, extra: widget.doctorModel);
+              pushTo(context, Routes.booking_screen, extra: widget.doctorModel);
             },
           ),
         ),

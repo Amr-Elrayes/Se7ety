@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sa7ety/core/utils/colors.dart';
 import 'package:sa7ety/core/utils/text_styles.dart';
+import 'package:sa7ety/features/appointment/presentation/appointment_screen.dart';
 import 'package:sa7ety/features/patient/home/presentation/pages/patient_home_screen.dart';
-import 'package:sa7ety/features/patient/screens/my_appointment_screen.dart';
 import 'package:sa7ety/features/patient/screens/patient_profile_screen.dart';
 import 'package:sa7ety/features/patient/search/pages/search_screen.dart';
 
@@ -19,7 +19,7 @@ class _MainPageState extends State<PatientMainScreen> {
   final List _pages = [
     const PatientHomeScreen(),
     const SearchScreen(),
-    MyAppointmentScreen(),
+    const MyAppointmentsScreen(),
     PatientProfileScreen(),
   ];
 

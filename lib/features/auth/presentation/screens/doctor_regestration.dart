@@ -8,7 +8,7 @@ import 'package:sa7ety/components/buttons/custom_buttom.dart';
 import 'package:sa7ety/components/inputs/custom_text_field.dart';
 import 'package:sa7ety/core/constants/app_images.dart';
 import 'package:sa7ety/core/constants/specializations.dart';
-import 'package:sa7ety/core/functions/showdialog.dart';
+import 'package:sa7ety/core/functions/showloadingdialog.dart';
 import 'package:sa7ety/core/functions/snackbar.dart';
 import 'package:sa7ety/core/routes/navigation.dart';
 import 'package:sa7ety/core/routes/routes.dart';
@@ -49,6 +49,7 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
             "استكمال التسجيل",
             style: TextStyles.textSize18.copyWith(color: AppColors.whiteColor),
           ),
+          iconTheme: IconThemeData(color: AppColors.whiteColor),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20),
@@ -243,13 +244,28 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
                                 color: AppColors.primaryColor,
                               ),
                               ontap: () async {
+                                // Pick a full time first
                                 var selectedTime = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
+                                  builder: (context, child) {
+                                    // Force 24-hour format in the dialog
+                                    return MediaQuery(
+                                      data: MediaQuery.of(
+                                        context,
+                                      ).copyWith(alwaysUse24HourFormat: true),
+                                      child: child!,
+                                    );
+                                  },
                                 );
+
                                 if (selectedTime != null) {
-                                  cubit.openHourController.text = selectedTime
-                                      .format(context);
+                                  // Extract ONLY the hour (0–23)
+                                  int hour24 = selectedTime.hour;
+
+                                  // Format it as HH:00  (24-hour system)
+                                  cubit.openHourController.text =
+                                      '${hour24.toString().padLeft(2, '0')}:00';
                                 }
                               },
                               controller: cubit.openHourController,
@@ -286,13 +302,28 @@ class _DoctorRegestrationState extends State<DoctorRegestration> {
                                 color: AppColors.primaryColor,
                               ),
                               ontap: () async {
+                                // Pick a full time first
                                 var selectedTime = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
+                                  builder: (context, child) {
+                                    // Force 24-hour format in the dialog
+                                    return MediaQuery(
+                                      data: MediaQuery.of(
+                                        context,
+                                      ).copyWith(alwaysUse24HourFormat: true),
+                                      child: child!,
+                                    );
+                                  },
                                 );
+
                                 if (selectedTime != null) {
-                                  cubit.closeHourController.text = selectedTime
-                                      .format(context);
+                                  // Extract ONLY the hour (0–23)
+                                  int hour24 = selectedTime.hour;
+
+                                  // Format it as HH:00  (24-hour system)
+                                  cubit.closeHourController.text =
+                                      '${hour24.toString().padLeft(2, '0')}:00';
                                 }
                               },
                               controller: cubit.closeHourController,

@@ -6,7 +6,7 @@ import 'package:sa7ety/components/inputs/custom_text_field.dart';
 import 'package:sa7ety/components/inputs/password_text_field.dart';
 import 'package:sa7ety/core/constants/app_images.dart';
 import 'package:sa7ety/core/functions/app_regex.dart';
-import 'package:sa7ety/core/functions/showdialog.dart';
+import 'package:sa7ety/core/functions/showloadingdialog.dart';
 import 'package:sa7ety/core/functions/snackbar.dart';
 import 'package:sa7ety/core/routes/navigation.dart';
 import 'package:sa7ety/core/routes/routes.dart';
